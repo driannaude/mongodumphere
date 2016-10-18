@@ -1,0 +1,17 @@
+{
+  "name": "mongodumphere",
+  "version": "0.8.0",
+  "description": "A tool to use ssh tunneling to dump remote mongodb data in the current folder",
+  "main": "mongodumphere.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Drian Naude <drian.naude@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "colors": "^1.1.2",
+    "commander": "^2.9.0",
+    "exec": "^0.2.1",
+    "ssh-exec": "^2.0.0"
+  }
+}
