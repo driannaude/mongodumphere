@@ -69,7 +69,7 @@ function copyMongoDumpToLocalMachine(){
       throw error;
     }
     console.log(colors.green('[  INFO]: DONE!'));
-    console.log('\n------------------------------------\n');
+    console.log('------------------------------------------------------------------------\n');
   });
 }
 
@@ -94,7 +94,7 @@ function sshTunnelingProcedure() {
     script.port = 22;
   }
 
-  console.log(colors.green('[ INFO]: Reverse Tunneling into [' + script.host + '] using port [' + script.port + '] as user [' + script.username + ']'));
+  console.log(colors.green('[  INFO]: Reverse Tunneling into [' + script.host + '] using port [' + script.port + '] as user [' + script.username + ']'));
   exec('mkdir -p ' + remoteFolder + ' && cd ' + remoteFolder + ' && mongodump --gzip --archive=./dump-' + todaysDate + '.' + sessionTime + '.gz', {
     user: script.username,
     host: script.host,
