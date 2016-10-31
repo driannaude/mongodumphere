@@ -49,14 +49,9 @@ if (shouldUseTunneling) {
 
 function createLocalFoldersIfNotExist(callback){
   child_process.exec('mkdir -p ' + remoteFolder, [], function (error, stdout, stderr) {
-    if (error) {
-      
-      console.log('[1]', stdout);
-      console.log('[2]',stderr);
+    if (error) { 
       throw error;
     }
-    console.log('[-1]', stdout);
-    console.log('[0]',stderr);
     if(callback && typeof callback === 'function'){
       callback();
     }  
@@ -65,14 +60,11 @@ function createLocalFoldersIfNotExist(callback){
 }
 
 function copyMongoDumpToLocalMachine(){
-  child_process.exec('scp drian@' + script.host + ':'+remoteFolder+'/dump-' + todaysDate + '.gz '+remoteFolder + '/dump-'+todaysDate + '.gz', [], function (error, stdout, stderr) {
+  child_process.exec('scp drian@' + script.host + ':' + remoteFolder + '/dump-' + todaysDate + '.gz '+remoteFolder + '/dump-'+todaysDate + '.gz', [], function (error, stdout, stderr) {
     if (error) {
-      console.log('[5]', stdout);
-      console.log('[6]',stderr);
       throw error;
     }
-    console.log('[3]', stdout);
-      console.log('[4]',stderr);
+    console.log(colors.green('[  INFO]: DONE!'))
   });
 }
 
@@ -99,8 +91,6 @@ function sshTunnelingProcedure() {
   }
 
   console.log(colors.green('[ INFO]: Reverse Tunneling into [' + script.host + '] using port [' + script.port + '] as user [' + script.username + ']'));
-  // Eventually we will go a gzip upgrade to mongo 3.2
-  //'mkdir -p ' + remoteFolder + ' && cd ' + remoteFolder + ' && mongodump --gzip --archive=./dump-' + todaysDate + '.gz'
   exec('mkdir -p ' + remoteFolder + ' && cd ' + remoteFolder + ' && mongodump --gzip --archive=./dump-' + todaysDate + '.gz', {
     user: script.username,
     host: script.host,
