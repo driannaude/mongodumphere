@@ -31,7 +31,7 @@ var seconds = padEarly(date.getUTCSeconds());
 var todaysDate = day + '-' + month + '-' + year;
 var sessionTime = hour + '' + minutes + '' + seconds;
 var remoteFolder = '~/mongo-backups/' + todaysDate;
-console.log(remoteFolder);
+console.log('[  INFO]: Running backup on ' + todaysDate + ' at ' + hour + ':' + minutes + ':' + seconds);
 
 var shouldUseTunneling = true;
 if (!script.host) {
@@ -68,7 +68,8 @@ function copyMongoDumpToLocalMachine(){
     if (error) {
       throw error;
     }
-    console.log(colors.green('[  INFO]: DONE!'))
+    console.log(colors.green('[  INFO]: DONE!'));
+    console.log('\n------------------------------------\n');
   });
 }
 
@@ -79,7 +80,6 @@ function remoteExecHandler(error, stdout, stderr) {
     console.error(stderr);
     throw error;
   }
-  console.log(stdout);
   createLocalFoldersIfNotExist(copyMongoDumpToLocalMachine());
 }
 
