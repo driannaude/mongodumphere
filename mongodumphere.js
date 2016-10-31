@@ -25,7 +25,11 @@ var date = new Date();
 var day = padEarly(date.getDate());
 var month = padEarly(date.getMonth() + 1);
 var year = date.getFullYear();
+var hour = padEarly(date.getUTCHours());
+var minutes = padEarly(date.getUTCMinutes());
+var seconds = padEarly(date.getUTCSeconds());
 var todaysDate = day + '-' + month + '-' + year;
+var sessionTime = hour + '' + minutes + '' + seconds;
 var remoteFolder = '~/mongo-backups/' + todaysDate;
 console.log(remoteFolder);
 
@@ -60,7 +64,7 @@ function createLocalFoldersIfNotExist(callback){
 }
 
 function copyMongoDumpToLocalMachine(){
-  child_process.exec('scp drian@' + script.host + ':' + remoteFolder + '/dump-' + todaysDate + '.gz '+remoteFolder + '/dump-'+todaysDate + '.gz', [], function (error, stdout, stderr) {
+  child_process.exec('scp drian@' + script.host + ':' + remoteFolder + '/dump-' + todaysDate  + '.' + sessionTime + '.gz '+remoteFolder + '/dump-'+todaysDate  + '.' + sessionTime + '.gz', [], function (error, stdout, stderr) {
     if (error) {
       throw error;
     }
@@ -91,7 +95,7 @@ function sshTunnelingProcedure() {
   }
 
   console.log(colors.green('[ INFO]: Reverse Tunneling into [' + script.host + '] using port [' + script.port + '] as user [' + script.username + ']'));
-  exec('mkdir -p ' + remoteFolder + ' && cd ' + remoteFolder + ' && mongodump --gzip --archive=./dump-' + todaysDate + '.gz', {
+  exec('mkdir -p ' + remoteFolder + ' && cd ' + remoteFolder + ' && mongodump --gzip --archive=./dump-' + todaysDate + '.' + sessionTime + '.gz', {
     user: script.username,
     host: script.host,
     password: script.password
